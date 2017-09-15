@@ -15,7 +15,8 @@ function cell(i, j, w){
 	this.neighborCount = 0;
 
 	this.bee = false;
-	this.revealed = false;	
+	this.revealed = false;
+	this.flagged = false;	
 }
 
 cell.prototype.show = function(){
@@ -42,6 +43,16 @@ cell.prototype.show = function(){
 			}
 		}
 	}
+
+	// if flagged, show triangle
+	if (this.flagged && !this.revealed){
+		fill(0);
+		triangle(this.x + 10, this.y + this.w - 10, this.x + this.w - 10, this.y + this.w - 10, this.x + this.w * 0.5, this.y + 10);
+	}
+}
+
+cell.prototype.flag = function(){
+	this.flagged = true;
 }
 
 cell.prototype.reveal = function(){

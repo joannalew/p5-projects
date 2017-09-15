@@ -42,15 +42,31 @@ function mousePressed(){
 	if (mouseX < 0 || mouseX > width || mouseY < 0 || mouseY > height)
 		return;
 
-	// show cell (bee or number) upon mouse press
+	// flag it if right mouse press
+	if (mouseButton == RIGHT){
+		for (var i = 0; i < cols; i++){
+			for (var j = 0; j < rows; j++){
+				if (grid[i][j].contains(mouseX, mouseY)){
+					grid[i][j].flag();
+				}
+			}
+		}
+		return;
+	}
+
+
+	// show cell (bee or number) upon left mouse press
 	for (var i = 0; i < cols; i++){
 		for (var j = 0; j < rows; j++){
 			if (grid[i][j].contains(mouseX, mouseY)){
 				grid[i][j].reveal();
+			
+				if (grid[i][j].bee){
+					gameOver();
+				}
 			}
 		}
 	}
-
 }
 
 
@@ -65,3 +81,11 @@ function draw(){
 
 }
 
+
+function gameOver(){
+	for (var i = 0; i < cols; i++){
+		for (var j = 0; j < rows; j++){
+			grid[i][j].reveal();
+		}
+	}
+}
