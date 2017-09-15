@@ -12,6 +12,7 @@ function cell(i, j, w){
 	this.x = i * w;
 	this.y = j * w;
 	this.w = w;
+	this.neighborCount = 0;
 
 	this.bee = false;
 	this.revealed = false;	
@@ -23,6 +24,7 @@ cell.prototype.show = function(){
 	noFill();
 	rect(this.x, this.y, this.w, this.w);	
 
+	// if revealed, show bee or number
 	if (this.revealed){
 		if (this.bee){
 			fill(200);
@@ -36,13 +38,22 @@ cell.prototype.show = function(){
 			fill(0);
 			strokeWeight(1);
 			var count = this.countNeighbors();
-			text(count, this.x + this.w * 0.5, this.y + 41);
+			if (count > 0)
+				text(count, this.x + this.w * 0.5, this.y + 41);
 		}
 	}
 }
 
 cell.prototype.reveal = function(){
 	this.revealed = true;
+	if (this.neighborCount == 0){
+		this.floodfill();
+	}
+}
+
+
+cell.prototype.floodfill = function(){
+	
 }
 
 cell.prototype.contains = function(x, y){
@@ -50,6 +61,7 @@ cell.prototype.contains = function(x, y){
 }
 
 
+// count number of neighbors that are bees
 cell.prototype.countNeighbors = function(){
 	var total = 0;
 
@@ -63,5 +75,6 @@ cell.prototype.countNeighbors = function(){
 		}
 	}
 
+	this.neighborCount = total;
 	return total;
 }
