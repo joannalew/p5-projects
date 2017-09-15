@@ -28,6 +28,12 @@ function setup(){
 			grid[i][j].bee = true;
 		}
 	}
+
+	for (var i = 0; i < cols; i++){
+		for (var j = 0; j < rows; j++){
+			grid[i][j].countNeighbors();
+		}
+	}
 }
 
 
@@ -49,6 +55,7 @@ function mousePressed(){
 
 
 function draw(){
+	// show the cells
 	background(255);
 	for (var i = 0; i < cols; i++){
 		for (var j = 0; j < rows; j++){
