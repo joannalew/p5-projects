@@ -15,6 +15,7 @@ function setup(){
 function draw(){
 	background(51);
 	ship.show();
+	ship.move();
 
 	for (var i = 0; i < drops.length; i++){
 		drops[i].show();
@@ -43,7 +44,6 @@ function draw(){
 		for (var i = 0; i < flowers.length; i++){
 			flowers[i].shiftDown();
 		}
-		edge = false;
 	}
 
 	for (var i = drops.length - 1; i >= 0; i--){
@@ -53,16 +53,22 @@ function draw(){
 	}
 }
 
-function keyPressed(){
-	if (keyCode === RIGHT_ARROW){
-		ship.move(1);
-	}
-	else if (keyCode === LEFT_ARROW){
-		ship.move(-1);
-	}
 
+function keyReleased(){
+	if (key != ' ')
+		ship.setDir(0);
+}
+
+function keyPressed(){
 	if (key === ' '){
 		var drop = new Drop(ship.x + 10, height);
 		drops.push(drop);
+	}
+
+	if (keyCode === RIGHT_ARROW){
+		ship.setDir(1);
+	}
+	else if (keyCode === LEFT_ARROW){
+		ship.setDir(-1);
 	}
 }

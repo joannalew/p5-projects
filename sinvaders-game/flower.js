@@ -1,7 +1,7 @@
 function Flower(x, y){
 	this.x = x;
 	this.y = y;
-	this.r = 30;
+	this.r = 15;
 
 	this.dx = 1;
 
